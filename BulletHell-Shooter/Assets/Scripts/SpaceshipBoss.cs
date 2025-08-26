@@ -5,6 +5,7 @@ public class SpaceshipBoss : MonoBehaviour
 {
     public ShootController shootController;
     public RadialShootController radialShootController;
+    public StarShootController starShootController;
 
     public void OnEnable()
     {
@@ -26,6 +27,10 @@ public class SpaceshipBoss : MonoBehaviour
         if (TimeManager.Minute == 10)
         {
             StartCoroutine(SecondPattern());
+        }
+        if (TimeManager.Minute == 20)
+        {
+            StartCoroutine(ThirdPattern());
         }
     }
 
@@ -70,6 +75,7 @@ public class SpaceshipBoss : MonoBehaviour
         yield return MoveTo(new Vector3(0f, 0f, 0f), 0.2f);
         yield return RotateTo(60f, -20f, 0.1f);
 
+        yield return RotateTo(0f, 0f, 1f);
         radialShootController.EnableShooting();
         yield return RotateTo(0f, 0f, 2f);
         yield return RotateTo(0f, 180f, 1.5f);
@@ -78,7 +84,21 @@ public class SpaceshipBoss : MonoBehaviour
         yield return RotateTo(360f, 180f, 1.5f);
         yield return RotateTo(180f, 0f, 1.5f);
         radialShootController.DisableShooting();
+    }
 
+    private IEnumerator ThirdPattern()
+    {
+        yield return RotateTo(0f, 0f, 2f);
+        starShootController.EnableShooting();
+        yield return RotateTo(0f, 90f, 1f);
+        yield return RotateTo(90f, 180f, 1f);
+        yield return RotateTo(180f, 270f, 1f);
+        yield return RotateTo(270f, 360f, 1f);
+        yield return RotateTo(0f, 90f, 1f);
+        yield return RotateTo(90f, 180f, 1f);
+        yield return RotateTo(180f, 270f, 1f);
+        yield return RotateTo(270f, 360f, 1f);
+        starShootController.DisableShooting();
     }
 
     private IEnumerator Rotate(float startZ, float targetZ, int repetitions, float duration)
