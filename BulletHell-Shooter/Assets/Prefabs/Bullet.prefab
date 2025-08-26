@@ -103,4 +103,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d99d66112dd6f4491196fff286363d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  velocity: {x: 2, y: 0, z: 0}
+  velocity: {x: 0, y: 0, z: 0}

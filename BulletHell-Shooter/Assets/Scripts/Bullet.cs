@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float maxTime = 3f;
+    private float maxTime = 3.5f;
     private float actualTime = 0f;
 
     public Vector3 velocity;
