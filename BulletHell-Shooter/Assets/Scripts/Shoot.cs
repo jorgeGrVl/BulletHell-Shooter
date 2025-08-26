@@ -24,5 +24,6 @@ public class Shoot : MonoBehaviour
         Bullet bullet = bulletPool.RequestBullet();
         bullet.transform.position = origin;
         bullet.velocity = velocity;
+        bullet.curveStrength = 0;
     }
 }

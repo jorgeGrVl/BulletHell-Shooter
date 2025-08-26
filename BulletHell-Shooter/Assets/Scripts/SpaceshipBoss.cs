@@ -4,12 +4,32 @@ using UnityEngine;
 public class SpaceshipBoss : MonoBehaviour
 {
     public ShootController shootController;
-    private void Start()
+    public RadialShootController radialShootController;
+
+    public void OnEnable()
     {
-        StartCoroutine(PatternRoutine());
+        TimeManager.OnMinuteChanged += TimeCheck;
     }
 
-    private IEnumerator PatternRoutine()
+    public void OnDisable()
+    {
+        TimeManager.OnMinuteChanged -= TimeCheck;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(FirstPattern());
+    }
+
+    private void TimeCheck()
+    {
+        if (TimeManager.Minute == 10)
+        {
+            StartCoroutine(SecondPattern());
+        }
+    }
+
+    private IEnumerator FirstPattern()
     {
         Vector3[] corners = {
             new Vector3(6.5f, 3.5f, 0f),
@@ -25,13 +45,17 @@ public class SpaceshipBoss : MonoBehaviour
             new Vector2(0f, 90f)
         };
 
-        float moveDuration = 0.5f; 
-        float rotationDuration = 0.2f; 
-        int rotationReps = 5;   
+        float moveDuration = 0.5f;
+        float rotationDuration = 0.2f;
+        int rotationReps = 5;
 
         for (int i = 0; i < corners.Length; i++)
         {
-            yield return StartCoroutine(RotateSquare(rotationRanges[i].x - 20, rotationRanges[i].y + 20, rotationReps, rotationDuration));
+            shootController.EnableShooting();
+            yield return StartCoroutine(Rotate(rotationRanges[i].x - 20, rotationRanges[i].y + 20, rotationReps, rotationDuration));
+            shootController.DisableShooting();
+
+            SnapToRightAngle();
 
             if (i < corners.Length - 1)
             {
@@ -40,16 +64,31 @@ public class SpaceshipBoss : MonoBehaviour
         }
     }
 
-    private IEnumerator RotateSquare(float startZ, float targetZ, int repetitions, float duration)
+    private IEnumerator SecondPattern()
     {
-        shootController.EnableShooting();
+        yield return RotateTo(0f, 40f, 0.1f);
+        yield return MoveTo(new Vector3(0f, 0f, 0f), 0.2f);
+        yield return RotateTo(60f, -20f, 0.1f);
+
+        radialShootController.EnableShooting();
+        yield return RotateTo(0f, 0f, 2f);
+        yield return RotateTo(0f, 180f, 1.5f);
+        yield return RotateTo(180f, 360f, 1.5f);
+        yield return RotateTo(0f, 0f, 2f);
+        yield return RotateTo(360f, 180f, 1.5f);
+        yield return RotateTo(180f, 0f, 1.5f);
+        radialShootController.DisableShooting();
+
+    }
+
+    private IEnumerator Rotate(float startZ, float targetZ, int repetitions, float duration)
+    {
         for (int i = 0; i < repetitions; i++)
         {
 
             yield return StartCoroutine(RotateTo(startZ, targetZ, duration));
             yield return StartCoroutine(RotateTo(targetZ, startZ, duration));
         }
-        shootController.DisableShooting();
     }
 
     private IEnumerator RotateTo(float startZ, float targetZ, float duration)
@@ -65,7 +104,7 @@ public class SpaceshipBoss : MonoBehaviour
             yield return null;
         }
 
-        transform.rotation = Quaternion.Euler(0f, 0f, targetZ + 20);
+        transform.rotation = Quaternion.Euler(0f, 0f, targetZ);
     }
 
     private IEnumerator MoveTo(Vector3 targetPos, float duration)
@@ -81,5 +120,12 @@ public class SpaceshipBoss : MonoBehaviour
         }
 
         transform.position = targetPos;
+    }
+    
+    private void SnapToRightAngle()
+    {
+        float z = transform.eulerAngles.z;
+        float snappedZ = Mathf.Round(z / 90f) * 90f;
+        transform.rotation = Quaternion.Euler(0f, 0f, snappedZ);
     }
 }
