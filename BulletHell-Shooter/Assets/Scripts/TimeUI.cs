@@ -21,6 +21,6 @@ public class TimeUI : MonoBehaviour
 
     private void UpdateTime()
     {
-        timeText.text = $"{TimeManager.Hour.ToString("00")}:{TimeManager.Minute:00}";
+        timeText.text = $"{TimeManager.Hour.ToString("00")}:{TimeManager.Minute - 1:00}";
     }
 }

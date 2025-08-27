@@ -17,18 +17,17 @@ public class SpaceshipBoss : MonoBehaviour
         TimeManager.OnMinuteChanged -= TimeCheck;
     }
 
-    private void Start()
-    {
-        StartCoroutine(FirstPattern());
-    }
-
     private void TimeCheck()
     {
-        if (TimeManager.Minute == 10)
+        if (TimeManager.Minute == 3)
+        {
+            StartCoroutine(FirstPattern());
+        }
+        if (TimeManager.Minute == 11)
         {
             StartCoroutine(SecondPattern());
         }
-        if (TimeManager.Minute == 20)
+        if (TimeManager.Minute == 21)
         {
             StartCoroutine(ThirdPattern());
         }
@@ -51,7 +50,7 @@ public class SpaceshipBoss : MonoBehaviour
         };
 
         float moveDuration = 0.5f;
-        float rotationDuration = 0.2f;
+        float rotationDuration = 0.15f;
         int rotationReps = 5;
 
         for (int i = 0; i < corners.Length; i++)
