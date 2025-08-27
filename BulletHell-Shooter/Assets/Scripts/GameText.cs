@@ -41,7 +41,7 @@ public class GameText : MonoBehaviour
         {
             StartCoroutine(ShowText1());
         }
-        if (TimeManager.Minute == 35)
+        if (TimeManager.Minute == 37)
         {
             StartCoroutine(ShowText2());
         }
