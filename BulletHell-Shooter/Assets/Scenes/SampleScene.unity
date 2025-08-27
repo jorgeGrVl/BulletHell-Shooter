@@ -412,6 +412,10 @@ PrefabInstance:
       propertyPath: velocity.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6929132235550176132, guid: 828183cf0c7ef994c8964e66b2790015, type: 3}
+      propertyPath: curveStrength
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8437338551238274976, guid: 828183cf0c7ef994c8964e66b2790015, type: 3}
       propertyPath: m_LocalPosition.x
       value: 100.68474
@@ -1254,6 +1258,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5931337330674805499, guid: 733f5c50d61a8044da85a08e55214037, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1296226104}
+    - targetCorrespondingSourceObject: {fileID: 5931337330674805499, guid: 733f5c50d61a8044da85a08e55214037, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1296226114}
+    - targetCorrespondingSourceObject: {fileID: 5931337330674805499, guid: 733f5c50d61a8044da85a08e55214037, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1296226115}
   m_SourcePrefab: {fileID: 100100000, guid: 733f5c50d61a8044da85a08e55214037, type: 3}
 --- !u!1 &1180210395
 GameObject:
@@ -1331,6 +1341,8 @@ Transform:
   m_Children:
   - {fileID: 1020219355}
   - {fileID: 1180210396}
+  - {fileID: 1997395393}
+  - {fileID: 1859491481}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1213433612
@@ -1402,6 +1414,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Square
   shootController: {fileID: 1180210397}
+  radialShootController: {fileID: 1997395394}
+  starShootController: {fileID: 1859491480}
+--- !u!114 &1296226114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296226092}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b50aa08435305843b10567427ba88af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RadialShoot
+  bullets: 10
+  cooldown: 0.15
+  speed: 5
+  bulletPool: {fileID: 740900241}
+  curveStrength: 4.5
+--- !u!114 &1296226115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296226092}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6838d50fc4cc74b9b9584e2a9e4991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StarShoot
+  bullets: 40
+  cooldown: 1
+  speed: 5
+  bulletPool: {fileID: 740900241}
 --- !u!1 &1362459703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,6 +1625,96 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1859491479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1859491481}
+  - component: {fileID: 1859491480}
+  m_Layer: 0
+  m_Name: StarShootController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1859491480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859491479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63cd3e560984ba24a96c88ade6f8ee10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StarShootController
+  shoot: {fileID: 1296226115}
+--- !u!4 &1859491481
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859491479}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.91086, y: -0.05769, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1180784614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1997395392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1997395393}
+  - component: {fileID: 1997395394}
+  m_Layer: 0
+  m_Name: RadialShootController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1997395393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997395392}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.68379, y: 0.1021, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1180784614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1997395394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997395392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7438a65eead64db45be1abae89bf51ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RadialShootController
+  shoot: {fileID: 1296226114}
 --- !u!1 &2021892309
 GameObject:
   m_ObjectHideFlags: 0

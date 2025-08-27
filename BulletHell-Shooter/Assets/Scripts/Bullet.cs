@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// This class represents a single bullet in the game. 
+/// Handles movement, optional curve behavior, and self-deactivation after a maximum lifetime.
+/// </summary>
 public class Bullet : MonoBehaviour
 {
     public float maxTime = 3.5f;
@@ -13,6 +17,9 @@ public class Bullet : MonoBehaviour
         actualTime = 0f;
     }
 
+    /// <summary>
+    /// Updates the bullet's position every frame, applies optional curve, and disables it if maxTime is exceeded.
+    /// </summary>
     private void Update()
     {
         float dt = Time.deltaTime;
@@ -30,6 +37,9 @@ public class Bullet : MonoBehaviour
             Disable();
     }
 
+    /// <summary>
+    /// Disables the bullet, resetting its lifetime counter and making it inactive.
+    /// </summary>
     void Disable()
     {
         actualTime = 0f;
